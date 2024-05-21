@@ -4,6 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { fireEvent } from '@testing-library/dom';
 import fetchMock from 'jest-fetch-mock';
 
+
 fetchMock.enableMocks();
 
 beforeEach(() => {
@@ -90,3 +91,103 @@ describe('handleSubmit and updateUI', () => {
         expect(document.getElementById('countryFlag').src).toBe('https://restcountries.com/v3.1/img/flags/fr.png');
     });
 });
+
+const localStorageMock = (() => {
+    let store = {};
+    return {
+        getItem: (key) => store[key] || null,
+        setItem: (key, value) => { store[key] = value.toString(); },
+        removeItem: (key) => { delete store[key]; },
+        clear: () => { store = {}; },
+    };
+})();
+
+Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+
+describe('Local Storage Operations', () => {
+    beforeEach(() => {
+        localStorage.clear();
+        document.body.innerHTML = `
+            <div>
+                <input id="inputDestination" value="Paris" />
+                <input type="date" id="tripStartDate" value="2023-12-01" />
+                <input type="date" id="tripEndDate" value="2023-12-10" />
+                <button id="saveTrip">Save Trip</button>
+                <button id="removeTrip">Remove Trip</button>
+            </div>
+        `;
+
+        const saveButton = document.getElementById('saveTrip');
+        const removeButton = document.getElementById('removeTrip');
+        saveButton.addEventListener('click', saveTrip);
+        removeButton.addEventListener('click', removeTrip);
+    });
+
+    test('saves trip to local storage', () => {
+        const saveButton = document.getElementById('saveTrip');
+        fireEvent.click(saveButton);
+
+        const trips = JSON.parse(localStorage.getItem('trips'));
+        expect(trips).toHaveLength(1);
+        expect(trips[0]).toEqual({
+            destination: 'Paris',
+            startDate: '2023-12-01',
+            endDate: '2023-12-10'
+        });
+    });
+
+    test('removes trip from local storage', () => {
+        // First, save a trip
+        const saveButton = document.getElementById('saveTrip');
+        fireEvent.click(saveButton);
+
+        // Now, remove the trip
+        const removeButton = document.getElementById('removeTrip');
+        fireEvent.click(removeButton);
+
+        const trips = JSON.parse(localStorage.getItem('trips'));
+        expect(trips).toHaveLength(0);
+    });
+});
+
+function saveTrip() {
+    const destination = document.getElementById('inputDestination').value;
+    const startDate = document.getElementById('tripStartDate').value;
+    const endDate = document.getElementById('tripEndDate').value;
+
+    if (!destination || !startDate || !endDate) {
+        console.error('All fields are required to save the trip');
+        return;
+    }
+
+    const trip = {
+        destination,
+        startDate,
+        endDate
+    };
+
+    let trips = JSON.parse(localStorage.getItem('trips')) || [];
+    trips.push(trip);
+    localStorage.setItem('trips', JSON.stringify(trips));
+
+    console.log('Trip saved successfully', trip);
+    alert('Trip saved successfully');
+}
+
+function removeTrip() {
+    const destination = document.getElementById('inputDestination').value;
+    const startDate = document.getElementById('tripStartDate').value;
+    const endDate = document.getElementById('tripEndDate').value;
+
+    if (!destination || !startDate || !endDate) {
+        console.error('All fields are required to remove the trip');
+        return;
+    }
+
+    let trips = JSON.parse(localStorage.getItem('trips')) || [];
+    trips = trips.filter(trip => trip.destination !== destination || trip.startDate !== startDate || trip.endDate !== endDate);
+    localStorage.setItem('trips', JSON.stringify(trips));
+
+    console.log('Trip removed successfully');
+    alert('Trip removed successfully');
+}
