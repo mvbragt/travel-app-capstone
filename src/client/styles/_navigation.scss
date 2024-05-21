@@ -1,0 +1,22 @@
+@import 'variables';
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-left: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: $white;
+  font-weight: normal;
+  font-size: larger;
+}
+
+nav ul li a:hover {
+  color: $sand;
+}

@@ -1,0 +1,30 @@
+@import 'variables';
+@import 'mixins';
+
+.header {
+  @include roboto-font(100);
+  color: $white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 4rem;
+  font-size: 5rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  min-height: 200px;
+}
+
+header {
+  background-color: $teal;
+  color: $white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logo {
+  color: $sand;
+  background-image: url("../media/th-small.png");
+  font-size: 24px;
+}

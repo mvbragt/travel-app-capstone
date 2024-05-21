@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Travel Hero</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="header">Travel Hero
+            <br>
+            <br>
+            <br>
+            <p class="slogan">Explore the World, One Adventure at a Time</p>
+        </div>
+        <nav>
+            <ul class="roboto">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main">
+        <section>
+            <div class="photo" id="photo"></div>
+            <div class="trip-info">
+                <h1>Welcome to Your Next Adventure</h1>
+                <div>
+                    <form id="form" class="form">
+                        <label for="inputDestination">Destination:</label>
+                        <input id="inputDestination" type="text" value="" placeholder="Please enter a city">
+                        <br><br>
+                        <label for="tripStartDate">Start Date:</label>
+                        <input type="date" id="tripStartDate" name="tripStartDate" required>
+                        <br><br>
+                        <label for="tripEndDate">End Date:</label>
+                        <input type="date" id="tripEndDate" name="tripEndDate" required>
+                        <button id="submitDestination" type="submit" value="submit">Let's go</button>
+                    </form>
+                </div>
+
+                <h1 id="location"><b>My trip to:</b> <span id="destination" style="font-weight: bold"></span></h1>
+                <p><b>Departing: <span id="departure"></span></b></p>
+                <p><b>Trip Length: <span id="tripLength"></span></b></p>
+                <div class="buttons">
+                    <button class="save-button" id="saveTrip">save trip</button>
+                    <button class="cancel-button" id="removeTrip">remove trip</button>
+                </div>
+                <div>
+                    <p id="countdown"></p>
+                </div>
+            </div>
+        </section>
+        <aside>
+            <div>
+                <h2>The weather forecast</h2>
+                <p>Typical weather for then is:</p>
+                <div id="weatherForecast"></div>
+            </div>
+            <div id="countryInfo">
+                <h2>Country Information</h2>
+                <p id="countryName"></p>
+                <p id="countryCapital"></p>
+                <p id="countryRegion"></p>
+                <p id="countryPopulation"></p>
+                <img id="countryFlag" src="" alt="Country Flag" style="width: 100px;">
+            </div>
+        </aside>
+    </main>
+    <footer class="footer"><p>Copyright © 2024 Travel Hero. All rights reserved.</p></footer>
+</div>
+<script src="/main.js"></script>
+</body>
+</html>

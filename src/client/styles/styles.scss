@@ -1,0 +1,31 @@
+@import 'variables';
+@import 'mixins';
+@import 'base';
+@import 'header';
+@import 'slogan';
+@import 'navigation';
+@import 'main';
+@import 'footer';
+
+@media only screen and (max-width: 768px) {
+  .header {
+    font-size: 3rem; // Smaller font size for mobile
+    padding: 2rem; // Less padding for mobile
+  }
+
+  .photo {
+    width: 100%; // Full width on mobile
+    height: auto; // Adjust height automatically
+  }
+
+  .main, aside, #hero, section {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px; // Reduced padding on mobile
+  }
+
+  nav ul li {
+    display: block; // Stack links vertically on mobile
+    margin: 10px 0; // Space out links
+  }
+}
